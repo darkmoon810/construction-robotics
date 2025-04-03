@@ -1,0 +1,6 @@
+streamlit
+pandas
+plotly
+python-dotenv
+slack-sdk
+numpy

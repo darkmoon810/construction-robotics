@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  dashboard:
+    build: .
+    ports:
+      - "8501:8501"
+    env_file:
+      - .env
+    volumes:
+      - ./app:/app
+    restart: unless-stopped
+
+  # Add ROS/Omniverse services as needed
+  # ros-bridge:
+  #   image: ros:noetic-ros-core
