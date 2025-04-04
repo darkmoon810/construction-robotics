@@ -5,12 +5,21 @@ services:
     build: .
     ports:
       - "8501:8501"
-    env_file:
-      - .env
-    volumes:
-      - ./app:/app
-    restart: unless-stopped
+    depends_on:
+      - ros-bridge
+    environment:
+      - ROS_HOSTNAME=dashboard
+      - ROS_MASTER_URI=http://ros-bridge:11311
 
-  # Add ROS/Omniverse services as needed
-  # ros-bridge:
-  #   image: ros:noetic-ros-core
+  ros-bridge:
+    image: ros:noetic-ros-core
+    ports:
+      - "11311:11311"  # ROS Master
+      - "9090:9090"    # ROS Bridge
+    command:
+      - bash
+      - -c
+      - |
+        apt-get update && apt-get install -y ros-noetic-rosbridge-server
+        source /opt/ros/noetic/setup.bash
+        roslaunch rosbridge_server rosbridge_websocket.launch                                                                                                                    

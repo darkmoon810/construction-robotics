@@ -4,3 +4,5 @@ plotly
 python-dotenv
 slack-sdk
 numpy
+roslibpy
+rospkg
